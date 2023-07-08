@@ -101,11 +101,12 @@ VALUES (0150, 0010, 0001, '2023-01-15', '2023-01-19'),
        (0152, 0004, 0003, '2023-03-10', '2023-03-14'),
        (0153, 0008, 0004, '2023-04-05', '2023-04-09');
        
--- Consulta a Quantidade de Sangue Disponíveis nos Hemocentros
-SELECT Hemocentros.Nome, SUM(SangueDisponivel.QuantidadeDisponivel) AS TotalDisponivel
-FROM Hemocentros
-JOIN SangueDisponivel ON Hemocentros.ID_Hemocentro = SangueDisponivel.ID_Hemocentro
-GROUP BY Hemocentros.Nome;
+/*--------------------------CONSULTAS--------------------------*/
+-- Faça uma consulta que imprima a quantidade total de sangue disponível nos hemocentros do RS.
+select count(S.ID_Sangue) as Quantidade_total_sangue_RS
+from sanguedisponivel S
+inner join hemocentros H on S.ID_Hemocentro = H.ID_Hemocentro
+where H.Estado = 'RS';
 
 -- Consulta mostra a quantidade de doações feita por cada Doador
 SELECT Doadores.Nome, COUNT(Doacoes.ID_Doacao) AS TotalDoacoes
