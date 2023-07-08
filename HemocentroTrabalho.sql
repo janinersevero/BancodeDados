@@ -92,27 +92,47 @@ INSERT INTO Pacientes (ID_Paciente, Nome, CPF, DataNascimento, Sexo, TipoSanguin
 VALUES (0001, 'José Silva', '67134695077', '1970-02-15', 'M', 'A+', 'Diabetes', 5),
        (0002, 'Carla Ferreira', '19983742039', '1988-12-02', 'F', 'O-', NULL, 6),
        (0003, 'André Martins', '52817403002', '1992-07-21', 'M', 'AB+', 'Anemia', 4),
-       (0004, 'Laura Cardoso', '71538822008',  '1985-09-08', 'F', 'B-', NULL, 2);
+       (0004, 'Laura Cardoso', '71538822008',  '1985-09-08', 'F', 'B-', NULL, 2),
+       (0005, 'Janete Assunção', '67845298000', '1990-04-18', 'F', 'O-', 'Tabagismo', 6);
        
 -- Inserção de dados na tabela "Doacoes"
 INSERT INTO Doacoes (ID_Doacao, ID_Doador, ID_Paciente, DataDoacao, DataRecepcao)
 VALUES (0150, 0010, 0001, '2023-01-15', '2023-01-19'),
        (0151, 0006, 0002, '2023-02-28', '2023-03-03'),
        (0152, 0004, 0003, '2023-03-10', '2023-03-14'),
-       (0153, 0008, 0004, '2023-04-05', '2023-04-09');
+       (0153, 0008, 0004, '2023-04-05', '2023-04-09'),
+       (0154, 0006, 0005, '2023-06-24', '2023-06-28'); 
        
 /*--------------------------CONSULTAS--------------------------*/
--- Faça uma consulta que imprima a quantidade total de sangue disponível nos hemocentros do RS.
+-- Consulta que imprime a quantidade total de sangue disponível nos hemocentros do RS.
 select count(S.ID_Sangue) as Quantidade_total_sangue_RS
 from sanguedisponivel S
 inner join hemocentros H on S.ID_Hemocentro = H.ID_Hemocentro
 where H.Estado = 'RS';
 
--- Consulta mostra a quantidade de doações feita por cada Doador
-SELECT Doadores.Nome, COUNT(Doacoes.ID_Doacao) AS TotalDoacoes
-FROM Doadores
-JOIN Doacoes ON Doadores.ID_Doador = Doacoes.ID_Doador
-GROUP BY Doadores.Nome;
+-- Consulta que mostra a quantidade total de doações de cada doador, 
+-- ordenando o resultado por ordem alfabética.
+select D.Nome, COUNT(DOE.ID_Doacao) as TotalDoacoes
+from Doadores D
+inner join Doacoes DOE ON D.ID_Doador = DOE.ID_Doador
+group by D.nome
+order by 1 asc;
+
+-- Faça uma consulta que imprima os nomes dos doadores O+ e 
+-- o estado em que doou na região sul do país.
+select D.Nome as Nome_Doador, H.Estado
+from Doadores D
+inner join Hemocentros H on D.ID_Hemocentro = H.ID_Hemocentro;
+
+-- Faça uma consulta que imprima a quantidade de doadores O+ registrados
+-- nos hemocentros da região sul do país. Ordene pela ordem alfabética do estado.
+select count(D.TipoSanguineo) as Total_O_Positivo, H.Estado
+from Doadores D
+inner join Hemocentros H on D.ID_Hemocentro = H.ID_Hemocentro
+where D.TipoSanguineo = 'O+' and (H.Estado = 'RS' or H.Estado = 'SC' or H.Estado = 'PR')
+group by H.Estado
+order by 2 asc; /*botar mais dados nos hemocentros, 1 com O+ em SC/PR e um hemocentro de outra região*/
+
 
 -- Consulta mostra onde os doadores realizaram as doações
 SELECT Doadores.Nome, Hemocentros.Nome AS NomeHemocentro
