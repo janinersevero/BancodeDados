@@ -2,50 +2,56 @@ create schema Trabalho;
 use trabalho;
 
 CREATE TABLE Doadores (
-  ID INT NOT NULL PRIMARY KEY,
-  Nome VARCHAR(500),
-  DataNascimento DATE,
-  Sexo VARCHAR(100), 
-  TipoSanguineo VARCHAR(5) NOT NULL,
-  HistoricoMedico VARCHAR(200),
-  HemocentroID INT,
-  FOREIGN KEY (HemocentroID) REFERENCES Hemocentros(ID)
+	ID_Doador INT not null primary key,
+	Nome VARCHAR(100) not null,
+	CPF CHAR(11) not null,
+	DataNascimento DATE,
+	Sexo CHAR(1), 
+	TipoSanguineo VARCHAR(3) not null,
+	HistoricoMedico VARCHAR(100),
+	ID_Hemocentro INT,
+	foreign key (ID_Hemocentro) references Hemocentros(ID_Hemocentro)
 );
 
 create table Hemocentros (
-ID INT not null primary key, 
-Nome VARCHAR(500),
-Endereço VARCHAR(500),
-Cidade VARCHAR(500),
-Estado VARCHAR(500)
+	ID_Hemocentro INT not null primary key, 
+	Nome VARCHAR(100),
+	Endereço VARCHAR(100),
+	Cidade VARCHAR(100),
+	Estado CHAR(2)
 ); 
 
 create table SangueDisponivel (
-ID INT not null primary key, 
-HemocentroID INT,
-TipoSanguineo VARCHAR(5), 
-QuantidadeDisponivel INT,
-foreign key (HemocentroID) references Hemocentros(ID)
+	ID_Sangue INT not null primary key,
+	ID_Doador INT not null,
+	ID_Hemocentro INT,
+	TipoSanguineo VARCHAR(5), 
+	QuantidadeDisponivel INT,
+	foreign key (ID_Hemocentro) references Hemocentros(ID_Hemocentro)
 ); 
 
 create table Pacientes (
-ID INT not null primary key, 
-Nome VARCHAR(300) not null,
-DataNascimento DATE,
-Sexo VARCHAR(100),
-TipoSanguineo VARCHAR(5),
-HistoricoMedico VARCHAR(200),
-QuantidadeDisponivel INT
+	ID_Paciente INT not null primary key,
+	Nome VARCHAR(100) not null,
+	CPF CHAR(11) not null,
+	DataNascimento DATE,
+	Sexo CHAR(1), 
+	TipoSanguineo VARCHAR(3) not null,
+	HistoricoMedico VARCHAR(100),
+	ID_Hemocentro INT,
+	foreign key (ID_Hemocentro) references Hemocentros(ID_Hemocentro)
 );
 
 CREATE TABLE Doacoes (
-  ID INT NOT NULL PRIMARY KEY,
-  DoadorID INT,
-  PacienteID INT,
-  DataDoacao DATE,
-  TotalDoacoes INT,
-  FOREIGN KEY (DoadorID) REFERENCES Doadores(ID),
-  FOREIGN KEY (PacienteID) REFERENCES Pacientes(ID)
+	ID_Doacao INT not null primary key,
+	ID_Doador INT,
+	ID_Paciente INT,
+   	ID_Hemocentro INT,
+	DataDoacao DATE,
+	TotalDoacoes INT,
+	foreign key (ID_Doador) references Doadores(ID_Doador),
+	foreign key (ID_Paciente) references Pacientes(ID_Paciente),
+    	foreign key (ID_Hemocentro) references Hemocentros(ID_Hemocentro)
 );
 
 -- Inserção de dados na tabela "Doadores"
