@@ -94,17 +94,33 @@ VALUES (1, 1, 3, '2023-01-15', 2),
        (3, 4, 2, '2023-03-10', 3),
        (4, 3, 4, '2023-04-05', 2);
        
--- Consulta a Quantidade de Sangue Disponiveís nos Hemocentros
+-- Consulta a Quantidade de Sangue Disponíveis nos Hemocentros
 SELECT Hemocentros.Nome, SUM(SangueDisponivel.QuantidadeDisponivel) AS TotalDisponivel
 FROM Hemocentros
-JOIN SangueDisponivel ON Hemocentros.ID = SangueDisponivel.HemocentroID
+JOIN SangueDisponivel ON Hemocentros.ID_Hemocentro = SangueDisponivel.ID_Hemocentro
 GROUP BY Hemocentros.Nome;
 
 -- Consulta mostra a quantidade de doações feita por cada Doador
-SELECT Doadores.Nome, COUNT(Doacoes.ID) AS TotalDoacoes
+SELECT Doadores.Nome, COUNT(Doacoes.ID_Doacao) AS TotalDoacoes
 FROM Doadores
-JOIN Doacoes ON Doadores.ID = Doacoes.DoadorID
+JOIN Doacoes ON Doadores.ID_Doador = Doacoes.ID_Doador
 GROUP BY Doadores.Nome;
+
+-- Consulta mostra onde os doadores realizaram as doações
+SELECT Doadores.Nome, Hemocentros.Nome AS NomeHemocentro
+FROM Doadores
+JOIN Hemocentros ON Doadores.ID_Hemocentro = Hemocentros.ID_Hemocentro;
+
+-- Consulta de doadores que doaram para pacientes com o mesmo tipo sanguíneo
+SELECT D.Nome AS NomeDoador, P.Nome AS NomePaciente
+FROM Doadores D
+JOIN Doacoes ON D.ID_Doador = Doacoes.ID_Doador
+JOIN Pacientes P ON Doacoes.ID_Paciente = P.ID_Paciente
+WHERE D.TipoSanguineo IN (
+    SELECT TipoSanguineo
+    FROM Pacientes
+    WHERE ID_Paciente = Doacoes.ID_Paciente
+)
 
 -- Consulta mostra onde os doares realizaram as doações 
 SELECT Doadores.Nome, Hemocentros.Nome AS NomeHemocentro
