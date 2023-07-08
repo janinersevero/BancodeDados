@@ -94,3 +94,19 @@ VALUES (1, 1, 3, '2023-01-15', 2),
        (3, 4, 2, '2023-03-10', 3),
        (4, 3, 4, '2023-04-05', 2);
        
+-- Consulta a Quantidade de Sangue Disponiveís nos Hemocentros
+SELECT Hemocentros.Nome, SUM(SangueDisponivel.QuantidadeDisponivel) AS TotalDisponivel
+FROM Hemocentros
+JOIN SangueDisponivel ON Hemocentros.ID = SangueDisponivel.HemocentroID
+GROUP BY Hemocentros.Nome;
+
+-- Consulta mostra a quantidade de doações feita por cada Doador
+SELECT Doadores.Nome, COUNT(Doacoes.ID) AS TotalDoacoes
+FROM Doadores
+JOIN Doacoes ON Doadores.ID = Doacoes.DoadorID
+GROUP BY Doadores.Nome;
+
+-- Consulta mostra onde os doares realizaram as doações 
+SELECT Doadores.Nome, Hemocentros.Nome AS NomeHemocentro
+FROM Doadores
+JOIN Hemocentros ON Doadores.HemocentroID = Hemocentros.ID;
