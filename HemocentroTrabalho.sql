@@ -1,8 +1,15 @@
 create schema Trabalho;
 use trabalho;
 
--- Criação Tabela de Doadores
-CREATE TABLE Doadores (
+create table Hemocentros (
+	ID_Hemocentro INT not null primary key, 
+	Nome VARCHAR(100),
+	Endereço VARCHAR(100),
+	Cidade VARCHAR(100),
+	Estado CHAR(2)
+); 
+
+create table Doadores (
 	ID_Doador INT not null primary key,
 	Nome VARCHAR(100) not null,
 	CPF CHAR(11) not null,
@@ -14,26 +21,14 @@ CREATE TABLE Doadores (
 	foreign key (ID_Hemocentro) references Hemocentros(ID_Hemocentro)
 );
 
--- Criação Tabela de Hemocentros
-create table Hemocentros (
-	ID_Hemocentro INT not null primary key, 
-	Nome VARCHAR(100),
-	Endereço VARCHAR(100),
-	Cidade VARCHAR(100),
-	Estado CHAR(2)
-); 
-
--- Criação de Tabela de Quantidade de Sangue Disponível
 create table SangueDisponivel (
 	ID_Sangue INT not null primary key,
-	ID_Doador INT not null,
+    ID_Doador INT not null,
 	ID_Hemocentro INT,
 	TipoSanguineo VARCHAR(5), 
-	QuantidadeDisponivel INT,
 	foreign key (ID_Hemocentro) references Hemocentros(ID_Hemocentro)
 ); 
 
---  Criação de Tabela de Pacientes
 create table Pacientes (
 	ID_Paciente INT not null primary key,
 	Nome VARCHAR(100) not null,
@@ -46,53 +41,65 @@ create table Pacientes (
 	foreign key (ID_Hemocentro) references Hemocentros(ID_Hemocentro)
 );
 
--- Criação de Tabela de Doações
-CREATE TABLE Doacoes (
+create table Doacoes (
 	ID_Doacao INT not null primary key,
 	ID_Doador INT,
 	ID_Paciente INT,
-   	ID_Hemocentro INT,
+    ID_Hemocentro INT,
 	DataDoacao DATE,
-	TotalDoacoes INT,
+    DataRecepcao DATE,
 	foreign key (ID_Doador) references Doadores(ID_Doador),
 	foreign key (ID_Paciente) references Pacientes(ID_Paciente),
-    	foreign key (ID_Hemocentro) references Hemocentros(ID_Hemocentro)
+    foreign key (ID_Hemocentro) references Hemocentros(ID_Hemocentro)
 );
-
 -- Inserção de dados na tabela "Hemocentros"
-INSERT INTO Hemocentros (ID, Nome, Endereço, Cidade, Estado)
-VALUES (1, 'Santa Casa de Misericórdia de Porto Alegre', 'Avenida Independência, 75 - bairro Centro Histórico', 'Porto Alegre', 'Rio Grande do Sul'),
-       (2, 'Hospital de Clínicas de Porto Alegre', 'Rua São Manoel, 543 - bairro Rio Branco', 'PortoAlegre', 'Rio Grande do Sul'),
-       (3, 'Grupo Hospitalar Conceição', 'Avenida Francisco Trein, 596 - bairro Cristo Redentor', 'Porto Alegre', 'Rio Grande do Sul'),
-	   (4, 'Hospital São Lucas da PUCRS', 'Avenida Ipiranga, 6690 - bairro Jardim Botânico ', 'Porto Alegre', 'Rio Grande do Sul');
-
+INSERT INTO Hemocentros (ID_Hemocentro, Nome, Endereço, Cidade, Estado)
+VALUES (1, 'Santa Casa de Misericórdia de Porto Alegre', 'Avenida Independência, 75 - Centro Histórico', 'Porto Alegre', 'RS'),
+       (2, 'Hospital de Clínicas de Porto Alegre', 'Rua São Manoel, 543 - Rio Branco', 'PortoAlegre', 'RS'),
+       (3, 'Grupo Hospitalar Conceição', 'Avenida Francisco Trein, 596 - Cristo Redentor', 'Porto Alegre', 'RS'),
+	   (4, 'Hospital São Lucas da PUCRS', 'Avenida Ipiranga, 6690 - Jardim Botânico ', 'Porto Alegre', 'RS'),
+       (5, 'Centro de Hematologia e Hemoterapia de Santa Catarina', 'Avenida Prof. Othon Gama D’Eça, 756 – Centro', 'Florianópolis', 'SC'),
+       (6, 'Centro de Hematologia e Hemoterapia do Paraná', 'Travessa João Prosdócimo, 145 - Alto da XV', 'Curitiba', 'PR');
+       
 -- Inserção de dados na tabela "Doadores"
-INSERT INTO Doadores (ID, Nome, DataNascimento, Sexo, TipoSanguineo, HistoricoMedico, HemocentroID)
-VALUES (1, 'Júlia Camilly', '2003-07-26', 'Feminino', 'A+', 'Nenhum', 1),
-       (2, 'Rebeca Kepler', '2003-11-14', 'Feminino', 'O+', 'Nenhum', 2),
-       (3, 'Janiner Severo', '2004-04-29', 'Feminino', 'B+', 'Nenhum', 3),
-       (4, 'Ana Carolina', '1995-06-18', 'F', 'AB-', 'Asma', 3);
+INSERT INTO Doadores (ID_Doador, Nome, CPF, DataNascimento, Sexo, TipoSanguineo, HistoricoMedico, ID_Hemocentro)
+VALUES (0001, 'Júlia Camilly Flach', '03371764001', '2003-07-26', 'F', 'A+', NULL, 1),
+       (0002, 'Rebeca Kepler', '78263217008', '2003-11-14', 'F', 'O+', NULL, 2),
+       (0003, 'Janiner Severo', '93365717021', '2004-04-29', 'F', 'B+', NULL, 3),
+       (0004, 'Maria Antônia Maia', '35330901081', '2002-09-04', 'F', 'O+', 'Asma', 4),
+       (0005, 'Pedro Luís Flach', '53218960037', '1995-06-18', 'M', 'AB-', 'Hipertensão', 1),
+       (0006, 'Julieta Cunha Fernandes', '16591451471', '1994-11-14', 'F', 'O-', 'Labirintite', 6),
+       (0007, 'Kauã Cunha Sousa', '16861393576', '1967-11-06', 'M', 'O+', NULL, 2),
+       (0008, 'Eduardo Silva Ribeiro', '38124138095', '1974-12-27', 'M', 'B-', 'Tabagismo', 2),
+       (0009, 'Breno Souza Gomes', '70408395044', '1985-04-15', 'M', 'AB+', NULL, 4),
+       (0010, 'Tomás Melo Sousa', '52136329391', '1968-06-03', 'M', 'A-', 'Depressão', 5); 
        
 -- Inserção de dados na tabela "SangueDisponivel"
-INSERT INTO SangueDisponivel (ID, HemocentroID, TipoSanguineo, QuantidadeDisponivel)
-VALUES (1, 1, 'A+', 10),
-       (2, 1, 'O-', 5),
-       (3, 2, 'AB+', 7),
-       (4, 3, 'B-', 3);	
+INSERT INTO SangueDisponivel (ID_Sangue, ID_Doador, TipoSanguineo, ID_Hemocentro)
+VALUES (0101, 0001, 'A+', 1),
+       (0201, 0002, 'O+', 2),
+       (0301, 0003, 'B+', 3),
+       (0401, 0004, 'O+', 4),
+       (0102, 0005, 'AB-', 1),
+       (0601, 0006, 'O-', 6),
+       (0202, 0007, 'O+', 2),
+       (0203, 0008, 'B-', 2),
+       (0402, 0009, 'AB+', 4),
+       (0501, 0010, 'A-', 5);
        
 -- Inserção de dados na tabela "Pacientes"
-INSERT INTO Pacientes (ID, Nome, DataNascimento, Sexo, TipoSanguineo, HistoricoMedico)
-VALUES (1, 'José Silva', '1970-02-15', 'Masculino', 'A+', 'Diabetes'),
-       (2, 'Carla Ferreira', '1988-12-02', 'Feminino', 'O-', 'Nenhum'),
-       (3, 'André Martins', '1992-07-21', 'Masculino', 'AB+', 'Anemia'),
-       (4, 'Laura Cardoso', '1985-09-08', 'Feminino', 'B-', 'Nenhum');
+INSERT INTO Pacientes (ID_Paciente, Nome, CPF, DataNascimento, Sexo, TipoSanguineo, HistoricoMedico, ID_Hemocentro)
+VALUES (0001, 'José Silva', '67134695077', '1970-02-15', 'M', 'A+', 'Diabetes', 5),
+       (0002, 'Carla Ferreira', '19983742039', '1988-12-02', 'F', 'O-', NULL, 6),
+       (0003, 'André Martins', '52817403002', '1992-07-21', 'M', 'AB+', 'Anemia', 4),
+       (0004, 'Laura Cardoso', '71538822008',  '1985-09-08', 'F', 'B-', NULL, 2);
        
 -- Inserção de dados na tabela "Doacoes"
-INSERT INTO Doacoes (ID, DoadorID, PacienteID, DataDoacao, TotalDoacoes)
-VALUES (1, 1, 3, '2023-01-15', 2),
-       (2, 2, 1, '2023-02-28', 1),
-       (3, 4, 2, '2023-03-10', 3),
-       (4, 3, 4, '2023-04-05', 2);
+INSERT INTO Doacoes (ID_Doacao, ID_Doador, ID_Paciente, DataDoacao, DataRecepcao)
+VALUES (0150, 0010, 0001, '2023-01-15', '2023-01-19'),
+       (0151, 0006, 0002, '2023-02-28', '2023-03-03'),
+       (0152, 0004, 0003, '2023-03-10', '2023-03-14'),
+       (0153, 0008, 0004, '2023-04-05', '2023-04-09');
        
 -- Consulta a Quantidade de Sangue Disponíveis nos Hemocentros
 SELECT Hemocentros.Nome, SUM(SangueDisponivel.QuantidadeDisponivel) AS TotalDisponivel
