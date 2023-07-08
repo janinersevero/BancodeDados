@@ -43,7 +43,7 @@ CREATE TABLE Doacoes (
   DoadorID INT,
   PacienteID INT,
   DataDoacao DATE,
-  QuantidadeDoada INT,
+  TotalDoacoes INT,
   FOREIGN KEY (DoadorID) REFERENCES Doadores(ID),
   FOREIGN KEY (PacienteID) REFERENCES Pacientes(ID)
 );
@@ -78,7 +78,7 @@ VALUES (1, 'José Silva', '1970-02-15', 'Masculino', 'A+', 'Diabetes'),
        (4, 'Laura Cardoso', '1985-09-08', 'Feminino', 'B-', 'Nenhum');
        
 -- Inserção de dados na tabela "Doacoes"
-INSERT INTO Doacoes (ID, DoadorID, PacienteID, DataDoacao, QuantidadeDoada)
+INSERT INTO Doacoes (ID, DoadorID, PacienteID, DataDoacao, TotalDoacoes)
 VALUES (1, 1, 3, '2023-01-15', 2),
        (2, 2, 1, '2023-02-28', 1),
        (3, 4, 2, '2023-03-10', 3),
