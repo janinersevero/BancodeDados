@@ -1,6 +1,7 @@
 create schema Trabalho;
 use trabalho;
 
+-- Criação Tabela de Doadores
 CREATE TABLE Doadores (
 	ID_Doador INT not null primary key,
 	Nome VARCHAR(100) not null,
@@ -13,6 +14,7 @@ CREATE TABLE Doadores (
 	foreign key (ID_Hemocentro) references Hemocentros(ID_Hemocentro)
 );
 
+-- Criação Tabela de Hemocentros
 create table Hemocentros (
 	ID_Hemocentro INT not null primary key, 
 	Nome VARCHAR(100),
@@ -21,6 +23,7 @@ create table Hemocentros (
 	Estado CHAR(2)
 ); 
 
+-- Criação de Tabela de Quantidade de Sangue Disponível
 create table SangueDisponivel (
 	ID_Sangue INT not null primary key,
 	ID_Doador INT not null,
@@ -30,6 +33,7 @@ create table SangueDisponivel (
 	foreign key (ID_Hemocentro) references Hemocentros(ID_Hemocentro)
 ); 
 
+--  Criação de Tabela de Pacientes
 create table Pacientes (
 	ID_Paciente INT not null primary key,
 	Nome VARCHAR(100) not null,
@@ -42,6 +46,7 @@ create table Pacientes (
 	foreign key (ID_Hemocentro) references Hemocentros(ID_Hemocentro)
 );
 
+-- Criação de Tabela de Doações
 CREATE TABLE Doacoes (
 	ID_Doacao INT not null primary key,
 	ID_Doador INT,
@@ -88,3 +93,4 @@ VALUES (1, 1, 3, '2023-01-15', 2),
        (2, 2, 1, '2023-02-28', 1),
        (3, 4, 2, '2023-03-10', 3),
        (4, 3, 4, '2023-04-05', 2);
+       
