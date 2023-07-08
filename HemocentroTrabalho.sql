@@ -1,5 +1,5 @@
-create database HemocentroTrabalho;
-use HemocentroTrabalho; 
+create schema Trabalho;
+use trabalho;
 
 CREATE TABLE Doadores (
   ID INT NOT NULL PRIMARY KEY,
@@ -83,4 +83,3 @@ VALUES (1, 1, 3, '2023-01-15', 2),
        (2, 2, 1, '2023-02-28', 1),
        (3, 4, 2, '2023-03-10', 3),
        (4, 3, 4, '2023-04-05', 2);
-       
