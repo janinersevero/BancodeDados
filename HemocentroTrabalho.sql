@@ -54,20 +54,19 @@ CREATE TABLE Doacoes (
     	foreign key (ID_Hemocentro) references Hemocentros(ID_Hemocentro)
 );
 
--- Inserção de dados na tabela "Doadores"
-INSERT INTO Doadores (ID, Nome, DataNascimento, Sexo, TipoSanguineo, HistoricoMedico, HemocentroID)
-VALUES (1, 'Júlia Camilly', '2003-07-26', 'Feminino', 'A+', 'Nenhum', 1),
-       (2, 'Rebeca Kepler', '2003-11-14', 'Feminino', 'O+', 'Nenhum', 2),
-       (3, 'Janiner Severo', '2004-04-29', 'Feminino', 'B+', 'Nenhum', 3),
-       (4, 'Ana Carolina', '1995-06-18', 'F', 'AB-', 'Asma', 3);
-
-
 -- Inserção de dados na tabela "Hemocentros"
 INSERT INTO Hemocentros (ID, Nome, Endereço, Cidade, Estado)
 VALUES (1, 'Santa Casa de Misericórdia de Porto Alegre', 'Avenida Independência, 75 - bairro Centro Histórico', 'Porto Alegre', 'Rio Grande do Sul'),
        (2, 'Hospital de Clínicas de Porto Alegre', 'Rua São Manoel, 543 - bairro Rio Branco', 'PortoAlegre', 'Rio Grande do Sul'),
        (3, 'Grupo Hospitalar Conceição', 'Avenida Francisco Trein, 596 - bairro Cristo Redentor', 'Porto Alegre', 'Rio Grande do Sul'),
 	   (4, 'Hospital São Lucas da PUCRS', 'Avenida Ipiranga, 6690 - bairro Jardim Botânico ', 'Porto Alegre', 'Rio Grande do Sul');
+
+-- Inserção de dados na tabela "Doadores"
+INSERT INTO Doadores (ID, Nome, DataNascimento, Sexo, TipoSanguineo, HistoricoMedico, HemocentroID)
+VALUES (1, 'Júlia Camilly', '2003-07-26', 'Feminino', 'A+', 'Nenhum', 1),
+       (2, 'Rebeca Kepler', '2003-11-14', 'Feminino', 'O+', 'Nenhum', 2),
+       (3, 'Janiner Severo', '2004-04-29', 'Feminino', 'B+', 'Nenhum', 3),
+       (4, 'Ana Carolina', '1995-06-18', 'F', 'AB-', 'Asma', 3);
        
 -- Inserção de dados na tabela "SangueDisponivel"
 INSERT INTO SangueDisponivel (ID, HemocentroID, TipoSanguineo, QuantidadeDisponivel)
