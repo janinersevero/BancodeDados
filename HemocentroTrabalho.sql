@@ -72,7 +72,8 @@ values (0001, 'Júlia Camilly Flach', '03371764001', '2003-07-26', 'F', 'A+', nu
        (0007, 'Kauã Cunha Sousa', '16861393576', '1967-11-06', 'M', 'O+', null, 2),
        (0008, 'Eduardo Silva Ribeiro', '38124138095', '1974-12-27', 'M', 'B-', 'Tabagismo', 2),
        (0009, 'Breno Souza Gomes', '70408395044', '1985-04-15', 'M', 'AB+', null, 4),
-       (0010, 'Tomás Melo Sousa', '52136329391', '1968-06-03', 'M', 'A-', 'Depressão', 5); 
+       (0010, 'Tomás Melo Sousa', '52136329391', '1968-06-03', 'M', 'A-', 'Depressão', 5),
+       (0011, 'João Vitor Gonçalves Blini', '54178981048', '2002-01-02', 'M', 'O-', 'Ansiedade', 3);
        
 -- Inserção de dados na tabela "SangueDisponivel"
 insert into SangueDisponivel (ID_Sangue, ID_Doador, TipoSanguineo, ID_Hemocentro)
@@ -93,7 +94,9 @@ values (0001, 'José Silva', '67134695077', '1970-02-15', 'M', 'A+', 'Diabetes',
        (0002, 'Carla Ferreira', '19983742039', '1988-12-02', 'F', 'O-', null, 6),
        (0003, 'André Martins', '52817403002', '1992-07-21', 'M', 'AB+', 'Anemia', 4),
        (0004, 'Laura Cardoso', '71538822008',  '1985-09-08', 'F', 'B-', null, 2),
-       (0005, 'Janete Assunção', '67845298000', '1990-04-18', 'F', 'O-', 'Tabagismo', 6);
+       (0005, 'Janete Assunção', '67845298000', '1990-04-18', 'F', 'O-', 'Tabagismo', 6),
+       (0006, 'Igor de Medeiros Endres', '03278299078', '2002-07-03', 'M', 'O+', 'Hipertensão', 3),
+       (0007, 'Leonardo Fiori Menegol', '09843784057', '2001-05-11', 'M', 'O+', 'Depressão', 2);
        
 -- Inserção de dados na tabela "Doacoes"
 insert into Doacoes (ID_Doacao, ID_Doador, ID_Paciente, DataDoacao, DataRecepcao)
